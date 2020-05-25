@@ -2,11 +2,12 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Lista de Heroes</title>
+<title>Lista</title>
 
 <!--Termina jQuery DataTable-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -42,50 +43,57 @@
 		responsive = True;
 	});
 </script>
+<style type="text/css">
+* {margin: 0; padding: 0;}
+#container {height: 50%; width:100%; font-size: 0;}
+#left, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
+#left {width: 25%;}
+#right {width: 50%;}
+</style>
+
 </head>
 <body>
-
 	<jsp:include page="plantillas/menu.jsp"></jsp:include>
-	<table border="1" id="myTable">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nombre</th>
-				<th>Rango</th>
-				<th>Habilidad</th>
-				<th>Residencia</th>
-				<th>Telefono</th>
-				<th>Tiene_Celula</th>
-				<th>Id Fan</th>
-				<th>Acciones</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${heroes }" var="heroe">
-				<tr>
-					<td>${heroe.id}</td>
-					<td>${heroe.nombre}</td>
-					<td>${heroe.rango}</td>
-					<td>${heroe.habilidad}</td>
-					<td>${heroe.residencia}</td>
-					<td>${heroe.telefono}</td>
-					<td>${heroe.tiene_celula}</td>
-					<td>${heroe.fan}</td>
-					<td><a href="editarHeroe/${heroe.id}"
-						class="btn btn-success btn-sm" role="button" title="Edit"> <span
-							class="glyphicon glyphicon-pencil"></span>editar
-					</a> <a href="#"
-						onclick='return confirm("¿Estas seguro?")'
-						class="btn btn-danger btn-sm" role="button" title="Eliminar">
-							<span class="glyphicon glyphicon-trash"></span>Estamos mejorando para ti :)
-					</a></td>
-
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
+	<div id="container">
+		<div id="left">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>No. Visita</th>
+						<th>Descripcion</th>
+						<th>Fecha</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${visitasConComida}" var="visitaConComida">
+						<tr>
+							<td>${visitaConComida.id}</td>
+							<td>${visitaConComida.descripcion}</td>
+							<td>${visitaConComida.fecha}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<div id="right">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>ID Comida</th>
+						<th>Nombre</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${comidaDeVisitas}" var="comidaDeVisita">
+						<tr>
+							<td>${comidaDeVisita.id}</td>
+							<td>${comidaDeVisita.nombre}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	<jsp:include page="plantillas/footer.jsp"></jsp:include>
-
 </body>
 </html>

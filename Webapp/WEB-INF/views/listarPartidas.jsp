@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Lista de Heroes</title>
+<title>Lista de Partidas</title>
 
 <!--Termina jQuery DataTable-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -50,34 +50,28 @@
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>Nombre</th>
-				<th>Rango</th>
-				<th>Habilidad</th>
-				<th>Residencia</th>
-				<th>Telefono</th>
-				<th>Tiene_Celula</th>
-				<th>Id Fan</th>
+				<th>Fecha</th>
+				<th>ID Ganador</th>
+				<th>ID Perdedor</th>
+				<th>ID Videojuego</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${heroes }" var="heroe">
+			<c:forEach items="${partidas}" var="partida">
 				<tr>
-					<td>${heroe.id}</td>
-					<td>${heroe.nombre}</td>
-					<td>${heroe.rango}</td>
-					<td>${heroe.habilidad}</td>
-					<td>${heroe.residencia}</td>
-					<td>${heroe.telefono}</td>
-					<td>${heroe.tiene_celula}</td>
-					<td>${heroe.fan}</td>
-					<td><a href="editarHeroe/${heroe.id}"
+					<td>${partida.id}</td>
+					<td>${partida.fecha}</td>
+					<td>${partida.ganador}</td>
+					<td>${partida.perdedor}</td>
+					<td>${partida.videojuego}</td>
+					<td><a href="editarPartida/${partida.id}"
 						class="btn btn-success btn-sm" role="button" title="Edit"> <span
 							class="glyphicon glyphicon-pencil"></span>editar
-					</a> <a href="#"
+					</a> <a href="eliminarPartida/${partida.id}"
 						onclick='return confirm("¿Estas seguro?")'
 						class="btn btn-danger btn-sm" role="button" title="Eliminar">
-							<span class="glyphicon glyphicon-trash"></span>Estamos mejorando para ti :)
+							<span class="glyphicon glyphicon-trash"></span>Eliminar
 					</a></td>
 
 				</tr>

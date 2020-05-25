@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Lista de Heroes</title>
+<title>Lista de Comidas</title>
 
 <!--Termina jQuery DataTable-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -51,30 +51,18 @@
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
-				<th>Rango</th>
-				<th>Habilidad</th>
-				<th>Residencia</th>
-				<th>Telefono</th>
-				<th>Tiene_Celula</th>
-				<th>Id Fan</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${heroes }" var="heroe">
+			<c:forEach items="${comidas}" var="comida">
 				<tr>
-					<td>${heroe.id}</td>
-					<td>${heroe.nombre}</td>
-					<td>${heroe.rango}</td>
-					<td>${heroe.habilidad}</td>
-					<td>${heroe.residencia}</td>
-					<td>${heroe.telefono}</td>
-					<td>${heroe.tiene_celula}</td>
-					<td>${heroe.fan}</td>
-					<td><a href="editarHeroe/${heroe.id}"
+					<td>${comida.id}</td>
+					<td>${comida.nombre}</td>
+					<td><a href="editarComida/${comida.id}"
 						class="btn btn-success btn-sm" role="button" title="Edit"> <span
 							class="glyphicon glyphicon-pencil"></span>editar
-					</a> <a href="#"
+					</a> <a href="#"${comida.id}"
 						onclick='return confirm("¿Estas seguro?")'
 						class="btn btn-danger btn-sm" role="button" title="Eliminar">
 							<span class="glyphicon glyphicon-trash"></span>Estamos mejorando para ti :)

@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Lista de Heroes</title>
-
-<!--Termina jQuery DataTable-->
+<title>Editar</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
@@ -34,58 +34,22 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-
-<script>
-<!--Función para darle formato a la Tabla-->
-	$(document).ready(function() {
-		$('#myTable').DataTable();
-		responsive = True;
-	});
-</script>
 </head>
 <body>
-
 	<jsp:include page="plantillas/menu.jsp"></jsp:include>
-	<table border="1" id="myTable">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nombre</th>
-				<th>Rango</th>
-				<th>Habilidad</th>
-				<th>Residencia</th>
-				<th>Telefono</th>
-				<th>Tiene_Celula</th>
-				<th>Id Fan</th>
-				<th>Acciones</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${heroes }" var="heroe">
-				<tr>
-					<td>${heroe.id}</td>
-					<td>${heroe.nombre}</td>
-					<td>${heroe.rango}</td>
-					<td>${heroe.habilidad}</td>
-					<td>${heroe.residencia}</td>
-					<td>${heroe.telefono}</td>
-					<td>${heroe.tiene_celula}</td>
-					<td>${heroe.fan}</td>
-					<td><a href="editarHeroe/${heroe.id}"
-						class="btn btn-success btn-sm" role="button" title="Edit"> <span
-							class="glyphicon glyphicon-pencil"></span>editar
-					</a> <a href="#"
-						onclick='return confirm("¿Estas seguro?")'
-						class="btn btn-danger btn-sm" role="button" title="Eliminar">
-							<span class="glyphicon glyphicon-trash"></span>Estamos mejorando para ti :)
-					</a></td>
-
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
+	<form action="guardarNuevoVideojuego" method="post">
+		<div class="form-group">
+			<input type="text" style="visibility: hidden" class="form-control"
+				name="id" id="id" required="required" value="${videojuego.id}" />
+		</div>
+		<div class="form-group">
+			<label for="exampleInputText1">Nombre</label> <input type="text"
+				class="form-control" id="nombre" name="nombre" placeholder="nombre"
+				required value="${videojuego.nombre}">
+		</div>
+		<button type="submit" class="btn btn-primary">Guardar</button>
+		<a href="/OnePunchManWeb/" class="btn btn-success"><span
+			class="fa fa-undo"></span>Cancelar</a>
+	</form>
 	<jsp:include page="plantillas/footer.jsp"></jsp:include>
-
-</body>
 </html>

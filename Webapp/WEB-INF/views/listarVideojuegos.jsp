@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Lista de Heroes</title>
+<title>Lista de Videojuegos</title>
 
 <!--Termina jQuery DataTable-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -51,27 +51,15 @@
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
-				<th>Rango</th>
-				<th>Habilidad</th>
-				<th>Residencia</th>
-				<th>Telefono</th>
-				<th>Tiene_Celula</th>
-				<th>Id Fan</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${heroes }" var="heroe">
+			<c:forEach items="${videojuegos}" var="videojuego">
 				<tr>
-					<td>${heroe.id}</td>
-					<td>${heroe.nombre}</td>
-					<td>${heroe.rango}</td>
-					<td>${heroe.habilidad}</td>
-					<td>${heroe.residencia}</td>
-					<td>${heroe.telefono}</td>
-					<td>${heroe.tiene_celula}</td>
-					<td>${heroe.fan}</td>
-					<td><a href="editarHeroe/${heroe.id}"
+					<td>${videojuego.id}</td>
+					<td>${videojuego.nombre}</td>
+					<td><a href="editarVideojuego/${videojuego.id}"
 						class="btn btn-success btn-sm" role="button" title="Edit"> <span
 							class="glyphicon glyphicon-pencil"></span>editar
 					</a> <a href="#"
