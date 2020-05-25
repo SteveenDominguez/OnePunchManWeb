@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import OnePunchManWeb.model.Comida;
 import OnePunchManWeb.model.Heroe;
 import OnePunchManWeb.model.HeroeXVideojuego;
+import OnePunchManWeb.model.Monstruo;
 import OnePunchManWeb.model.Patrocinador;
 import OnePunchManWeb.model.Videojuego;
 import OnePunchManWeb.model.Visita;
@@ -23,6 +24,7 @@ import OnePunchManWeb.model.VisitaXComida;
 import OnePunchManWeb.service.IComidaService;
 import OnePunchManWeb.service.IHerXVidService;
 import OnePunchManWeb.service.IHeroeService;
+import OnePunchManWeb.service.IMonstruoService;
 import OnePunchManWeb.service.IPatrocinadorService;
 import OnePunchManWeb.service.IVideojuegoService;
 import OnePunchManWeb.service.IVisXComService;
@@ -44,6 +46,8 @@ public class HomeController {
 	IHerXVidService hxv;
 	@Autowired
 	IPatrocinadorService patro;
+	@Autowired
+	IMonstruoService mons;
 
 	@RequestMapping(value= "/", method = RequestMethod.GET)
 	public String HomePage() {
@@ -419,5 +423,59 @@ public class HomeController {
 		List<Patrocinador> patrocinadores=patro.listarPatrocinadores();
 		modelo.addAttribute("patrocinadores",patrocinadores);
 		return "redirect:/listarPatrocinadores";
+	}
+	
+	@RequestMapping(value= "/listarMonstruos", method = RequestMethod.GET)
+	public String ListarMonstruos(Model modelo) {
+		List<Monstruo> monstruos= mons.listarMonstruos();
+		modelo.addAttribute("monstruos",monstruos);
+		return "listarMonstruos";
+	}
+
+
+	//Controladores para insertar Monstruo
+	@RequestMapping(value = "/insertarMonstruos")
+	public String InsertarMonstruos() {
+		return "insertarMonstruos";
+	}
+
+	@PostMapping(value = "/guardarMonstruos")
+	public String guardarMonstruos(@ModelAttribute Monstruo monstruo, BindingResult result,Model modelo) {
+		mons.guardar(monstruo);
+		List<Monstruo> monstruos= mons.listarMonstruos();
+		modelo.addAttribute("monstruos",monstruos);
+		return "listarMonstruos";
+	}
+	//Fin controladores para insertar Monstruo
+
+	 @RequestMapping(value = "/eliminarMonstruo/{id}")
+	public String eliminarMonstruo(@PathVariable("id") int id,Model modelo) {
+		mons.eliminar(id);
+		List<Monstruo> monstruos=mons.listarMonstruos();
+		modelo.addAttribute("monstruos",monstruos);
+		return "redirect:/listarMonstruos";
+	}
+	 
+
+	@RequestMapping(value="/editarMonstruo/{id}")
+	public String editarMonstruo(@PathVariable("id") int id,Model modelo) {
+		Monstruo eldato=mons.encontrarPorId(id);
+		modelo.addAttribute("monstruo",eldato);
+		return "editarMonstruos";
+	}
+
+	@PostMapping(value="/editarMonstruo/guardarNuevoMonstruo")
+	public String guardarNuevoMonstruo(Model modelo, @RequestParam("id") int id, @RequestParam("nombre") 
+	String nombre,  @RequestParam("amenaza") String amenaza,  @RequestParam("tiene_celula") String tiene_celula)
+	{
+		Monstruo eldato=mons.encontrarPorId(id);
+		eldato.setId(id);
+		eldato.setNombre(nombre);
+		eldato.setAmenaza(amenaza);
+		eldato.setTiene_celula(tiene_celula);
+		mons.guardar(eldato);
+		List<Monstruo> monstruos=mons.listarMonstruos();
+		modelo.addAttribute("monstruos",monstruos);
+		return "redirect:/listarMonstruos";
 	}
 }
