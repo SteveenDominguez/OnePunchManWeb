@@ -59,6 +59,13 @@
 						<a class="dropdown-item" href="listarMonstruos">Listar Monstruos</a> <a
 							class="dropdown-item" href="insertarMonstruos">Insertar Monstruos</a>
 					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">Combates</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown07">
+						<a class="dropdown-item" href="listarCombates">Listar Combates</a> <a
+							class="dropdown-item" href="insertarCombates">Insertar Combates</a>
+					</div></li>
 			</ul>
 
 		</div>

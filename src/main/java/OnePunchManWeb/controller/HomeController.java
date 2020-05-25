@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import OnePunchManWeb.model.Combate;
 import OnePunchManWeb.model.Comida;
 import OnePunchManWeb.model.Heroe;
 import OnePunchManWeb.model.HeroeXVideojuego;
@@ -21,6 +22,7 @@ import OnePunchManWeb.model.Patrocinador;
 import OnePunchManWeb.model.Videojuego;
 import OnePunchManWeb.model.Visita;
 import OnePunchManWeb.model.VisitaXComida;
+import OnePunchManWeb.service.ICombateService;
 import OnePunchManWeb.service.IComidaService;
 import OnePunchManWeb.service.IHerXVidService;
 import OnePunchManWeb.service.IHeroeService;
@@ -48,6 +50,8 @@ public class HomeController {
 	IPatrocinadorService patro;
 	@Autowired
 	IMonstruoService mons;
+	@Autowired
+	ICombateService comba;
 
 	@RequestMapping(value= "/", method = RequestMethod.GET)
 	public String HomePage() {
@@ -477,5 +481,59 @@ public class HomeController {
 		List<Monstruo> monstruos=mons.listarMonstruos();
 		modelo.addAttribute("monstruos",monstruos);
 		return "redirect:/listarMonstruos";
+	}
+	
+	@RequestMapping(value= "/listarCombates", method = RequestMethod.GET)
+	public String ListarCombates(Model modelo) {
+		List<Combate> combates= comba.listarCombates();
+		modelo.addAttribute("combates",combates);
+		return "listarCombates";
+	}
+
+
+	//Controladores para insertar Combate
+	@RequestMapping(value = "/insertarCombates")
+	public String InsertarCombates() {
+		return "insertarCombates";
+	}
+
+	@PostMapping(value = "/guardarCombates")
+	public String guardarCombates(@ModelAttribute Combate combate, BindingResult result,Model modelo) {
+		comba.guardar(combate);
+		List<Combate> combates= comba.listarCombates();
+		modelo.addAttribute("combates",combates);
+		return "listarCombates";
+	}
+	//Fin controladores para insertar Combate
+
+	 @RequestMapping(value = "/eliminarCombate/{id}")
+	public String eliminarCombate(@PathVariable("id") int id,Model modelo) {
+		comba.eliminar(id);
+		List<Combate> combates=comba.listarCombates();
+		modelo.addAttribute("combates",combates);
+		return "redirect:/listarCombates";
+	}
+	 
+
+	@RequestMapping(value="/editarCombate/{id}")
+	public String editarCombate(@PathVariable("id") int id,Model modelo) {
+		Combate eldato=comba.encontrarPorId(id);
+		modelo.addAttribute("combate",eldato);
+		return "editarCombates";
+	}
+
+	@PostMapping(value="/editarCombate/guardarNuevoCombate")
+	public String guardarNuevoCombate(Model modelo, @RequestParam("id") int id, @RequestParam("fecha") 
+	String fecha,  @RequestParam("ganador") String ganador,  @RequestParam("perdedor") String perdedor)
+	{
+		Combate eldato=comba.encontrarPorId(id);
+		eldato.setId(id);
+		eldato.setFecha(fecha);
+		eldato.setGanador(ganador);
+		eldato.setPerdedor(perdedor);
+		comba.guardar(eldato);
+		List<Combate> combates=comba.listarCombates();
+		modelo.addAttribute("combates",combates);
+		return "redirect:/listarCombates";
 	}
 }
