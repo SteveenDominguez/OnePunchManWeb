@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import OnePunchManWeb.model.Comida;
 import OnePunchManWeb.model.Heroe;
 import OnePunchManWeb.model.HeroeXVideojuego;
+import OnePunchManWeb.model.Patrocinador;
 import OnePunchManWeb.model.Videojuego;
 import OnePunchManWeb.model.Visita;
 import OnePunchManWeb.model.VisitaXComida;
 import OnePunchManWeb.service.IComidaService;
 import OnePunchManWeb.service.IHerXVidService;
 import OnePunchManWeb.service.IHeroeService;
+import OnePunchManWeb.service.IPatrocinadorService;
 import OnePunchManWeb.service.IVideojuegoService;
 import OnePunchManWeb.service.IVisXComService;
 import OnePunchManWeb.service.IVisitaService;
@@ -40,6 +42,8 @@ public class HomeController {
 	IVideojuegoService vid;
 	@Autowired
 	IHerXVidService hxv;
+	@Autowired
+	IPatrocinadorService patro;
 
 	@RequestMapping(value= "/", method = RequestMethod.GET)
 	public String HomePage() {
@@ -362,5 +366,58 @@ public class HomeController {
 		List<HeroeXVideojuego> partidas=hxv.listarPartidas();
 		modelo.addAttribute("partidas", partidas);
 		return "redirect:/listarPartidas";
+	}
+	
+	@RequestMapping(value= "/listarPatrocinadores", method = RequestMethod.GET)
+	public String ListarPatrocinadores(Model modelo) {
+		List<Patrocinador> patrocinadores= patro.listarPatrocinadores();
+		modelo.addAttribute("patrocinadores",patrocinadores);
+		return "listarPatrocinadores";
+	}
+
+
+	//Controladores para insertar Patrocinador
+	@RequestMapping(value = "/insertarPatrocinadores")
+	public String InsertarPatrocinadores() {
+		return "insertarPatrocinadores";
+	}
+
+	@PostMapping(value = "/guardarPatrocinadores")
+	public String guardarPatrocinadores(@ModelAttribute Patrocinador patrocinador, BindingResult result,Model modelo) {
+		patro.guardar(patrocinador);
+		List<Patrocinador> patrocinadores= patro.listarPatrocinadores();
+		modelo.addAttribute("patrocinadores",patrocinadores);
+		return "listarPatrocinadores";
+	}
+	//Fin controladores para insertar Patrocinador
+
+	 @RequestMapping(value = "/eliminarPatrocinador/{id}")
+	public String eliminarPatrocinador(@PathVariable("id") int id,Model modelo) {
+		patro.eliminar(id);
+		List<Patrocinador> patrocinadores=patro.listarPatrocinadores();
+		modelo.addAttribute("patrocinadores",patrocinadores);
+		return "redirect:/listarPatrocinadores";
+	}
+	 
+
+	@RequestMapping(value="/editarPatrocinador/{id}")
+	public String editarPatrocinador(@PathVariable("id") int id,Model modelo) {
+		Patrocinador eldato=patro.encontrarPorId(id);
+		modelo.addAttribute("patrocinador",eldato);
+		return "editarPatrocinadores";
+	}
+
+	@PostMapping(value="/editarPatrocinador/guardarNuevoPatrocinador")
+	public String guardarNuevoPatrocinador(Model modelo, @RequestParam("id") int id, @RequestParam("nombre") 
+	String nombre,  @RequestParam("dinero") int dinero)
+	{
+		Patrocinador eldato=patro.encontrarPorId(id);
+		eldato.setId(id);
+		eldato.setNombre(nombre);
+		eldato.setDinero(dinero);
+		patro.guardar(eldato);
+		List<Patrocinador> patrocinadores=patro.listarPatrocinadores();
+		modelo.addAttribute("patrocinadores",patrocinadores);
+		return "redirect:/listarPatrocinadores";
 	}
 }

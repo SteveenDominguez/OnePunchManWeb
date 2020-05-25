@@ -45,6 +45,13 @@
 						<a class="dropdown-item" href="listarPartidas">Listar Partidas</a> <a
 							class="dropdown-item" href="insertarPartidas">Insertar Partidas</a>
 					</div></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">Patrocinadores</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown07">
+						<a class="dropdown-item" href="listarPatrocinadores">Listar Patrocinadores</a> <a
+							class="dropdown-item" href="insertarPatrocinadores">Insertar Patrocinadores</a>
+					</div></li>
 			</ul>
 
 		</div>
