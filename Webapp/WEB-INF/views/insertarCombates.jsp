@@ -44,7 +44,7 @@
 		</div>
 		<div class="form-group">
 			<label for="exampleInputText1">Fecha</label> <input type="text"
-				class="form-control" id="fecha" name="fecha" placeholder="fecha"
+				class="form-control" id="fecha" name="fecha" placeholder="dd/mm/yyyy"
 				required>
 		</div>
 		<div class="form-group">

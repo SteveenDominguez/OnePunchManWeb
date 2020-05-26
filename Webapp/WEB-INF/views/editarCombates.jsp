@@ -43,19 +43,19 @@
 				name="id" id="id" required="required" value="${combate.id}" />
 		</div>
 		<div class="form-group">
-			<label for="exampleInputText1">Nombre</label> <input type="text"
-				class="form-control" id="nombre" name="nombre" placeholder="nombre"
-				required value="${combate.nombre}">
-		</div>
-		<div class="form-group">
 			<label for="exampleInputText1">Fecha</label> <input type="text"
-				class="form-control" id="fecha" name="fehca" placeholder="fecha"
+				class="form-control" id="fecha" name="fecha" placeholder="fecha"
 				required value="${combate.fecha}">
 		</div>
 		<div class="form-group">
 			<label for="exampleInputText1">Ganador</label> <input type="text"
 				class="form-control" id="ganador" name="ganador" placeholder="ganador"
 				required value="${combate.ganador}">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputText1">Perdedor</label> <input type="text"
+				class="form-control" id="perdedor" name="perdedor" placeholder="perdedor"
+				required value="${combate.perdedor}">
 		</div>
 		<button type="submit" class="btn btn-primary">Guardar</button>
 		<a href="/OnePunchManWeb/" class="btn btn-success"><span

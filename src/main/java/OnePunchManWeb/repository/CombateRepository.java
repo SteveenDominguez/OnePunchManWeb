@@ -11,6 +11,6 @@ import OnePunchManWeb.model.Combate;
 @Repository
 public interface CombateRepository extends JpaRepository<Combate, Integer> {
 	Combate findById(int id);
-	List<Combate> findByNombre(String nombre);
+	List<Combate> findByFecha(String fecha);
 	
 	}

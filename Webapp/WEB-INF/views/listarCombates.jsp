@@ -61,6 +61,8 @@
 				<tr>
 					<td>${combate.id}</td>
 					<td>${combate.fecha}</td>
+					<td>${combate.ganador}</td>
+					<td>${combate.perdedor}</td>
 					<td><a href="editarCompate/${combate.id}"
 						class="btn btn-success btn-sm" role="button" title="Edit"> <span
 							class="glyphicon glyphicon-pencil"></span>editar
